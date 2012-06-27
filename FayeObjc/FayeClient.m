@@ -106,16 +106,16 @@
 #pragma mark WebSocket Delegate
 
 -(void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean {
-  self.webSocketConnected = NO;  
-  fayeConnected = NO;  
-  if(self.delegate != NULL && [self.delegate respondsToSelector:@selector(disconnectedFromServer)]) {
-    [self.delegate disconnectedFromServer];
-  }  
+  self.webSocketConnected = NO;
+  fayeConnected = NO;
+  [self.delegate disconnectedFromServer];
 }
 
 -(void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error {
   NSLog(@"WebSocket error: %@", [error localizedDescription]);
-  [delegate socketDidFailWithError:error];
+  if (self.delegate && [self.delegate respondsToSelector:@selector(socketDidFailWithError:)]) {
+    [delegate socketDidFailWithError:error];
+  }
 }
 
 -(void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(NSString*)message {
