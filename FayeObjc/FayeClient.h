@@ -31,7 +31,7 @@
 #endif
 
 #import "SRWebSocket.h"
-enum _fayeStates {
+typedef enum _fayeStates {
   kWebSocketDisconnected,
   kWebSocketConnected,
   kFayeDisconnected,
